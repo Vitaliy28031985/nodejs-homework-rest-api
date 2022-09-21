@@ -1,4 +1,6 @@
-const express = require('express')
+const express = require('express');
+
+const {contactValidation} = require('../../validation/validationContact');
 
 const {
   getContacts,
@@ -16,10 +18,10 @@ router.get('/', getContacts)
 
 router.get('/:contactId', getContactsById)
 
-router.post('/', addContact)
+router.post('/', contactValidation, addContact)
 
 router.delete('/:contactId', removeContact)
 
-router.put('/:contactId', updateContact)
+router.put('/:contactId', contactValidation, updateContact)
 
 module.exports = router
