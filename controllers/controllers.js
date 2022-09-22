@@ -24,7 +24,11 @@ const updateContact = async (req, res) => {
    const {contactId} = req.params;
    const {body} = req;
    const updateContact = await dataContacts.updateContact(contactId, body);
+   if(updateContact) {
    res.status(200).json(updateContact);
+} else {
+   res.status(404).json({ message: 'Not found' });
+}
 };
 
 const removeContact = async (req, res) => {
