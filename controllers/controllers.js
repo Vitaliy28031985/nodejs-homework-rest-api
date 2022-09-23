@@ -43,10 +43,23 @@ res.status(200).json({ message: 'contact deleted' });
 
 };
 
+const updateStatusContact = async (req, res) => {
+   const {contactId} = req.params;
+   const {favorite} = req.body;
+   const updateContact = await Contact.findByIdAndUpdate(contactId, {favorite}, {new: true});
+   if(updateContact) {
+   res.status(200).json(updateContact);
+} else {
+   res.status(404).json({ message: 'Not found' });
+}
+
+};
+
 module.exports = {
    getContacts,
    getContactsById,
    addContact,
    updateContact,
    removeContact,
+   updateStatusContact
 };

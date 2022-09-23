@@ -31,6 +31,8 @@ const contactValidation = (req, res, next) => {
        favorite: Joi.bool().required(),
    });
 
+   
+
    const validationResult = schema.validate(req.body);
 
    if (validationResult.error) {
@@ -43,10 +45,11 @@ const contactValidation = (req, res, next) => {
  };
 
 
+
 const Contact = model("contact", contactSchema);
 
 
 module.exports = {
    Contact,
-   contactValidation  
+   contactValidation, 
 }
