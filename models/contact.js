@@ -28,7 +28,7 @@ const contactValidation = (req, res, next) => {
        .length(10)
        .pattern(/^[0-9]+$/)
        .required(),
-       favorite: Joi.bool().required(),
+       favorite: Joi.bool(),
    });
 
    
@@ -44,6 +44,22 @@ const contactValidation = (req, res, next) => {
    next();
  };
 
+ const favoriteValidation = (req, res, next) => {
+  const schema = Joi.object({
+      favorite: Joi.bool().required(),
+  });
+
+  const validationResult = schema.validate(req.body);
+
+  if (validationResult.error) {
+    return res.status(400).json({
+      message: validationResult.error.details[0].message,
+    });
+  }
+
+  next();
+};
+
 
 
 const Contact = model("contact", contactSchema);
@@ -51,5 +67,6 @@ const Contact = model("contact", contactSchema);
 
 module.exports = {
    Contact,
-   contactValidation, 
+   contactValidation,
+   favoriteValidation, 
 }
