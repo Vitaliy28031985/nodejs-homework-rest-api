@@ -25,7 +25,7 @@ const userSchema = Schema(
     this.password = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
     }
 
-    userSchema.methods.coparePassword = function(password) {
+    userSchema.methods.coparePassword = function (password) {
       return bcrypt.compareSync(password, this.password);
     }
 
