@@ -1,6 +1,7 @@
 const express = require('express')
 
 const {ctrlWrapper} = require('../../helpers');
+const {auth} = require('../../middlewares')
 const {
   getContacts,
   getContactsById,
@@ -11,11 +12,11 @@ const {
 
 const router = express.Router()
 
-router.get('/', ctrlWrapper(getContacts))
+router.get('/', auth, ctrlWrapper(getContacts))
 
 router.get('/:contactId', ctrlWrapper(getContactsById))
 
-router.post('/', ctrlWrapper(addContact))
+router.post('/', auth, ctrlWrapper(addContact))
 
 router.put('/:contactId', ctrlWrapper(updateContact))
 

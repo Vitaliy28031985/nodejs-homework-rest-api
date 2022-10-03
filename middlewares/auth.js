@@ -6,7 +6,7 @@ const {SECRET_KEY} = process.env;
 
 const auth = async(req, res, next) => {
 const {authorization = ""} = req.headers;
-const [bearer, token] = authorization.spit(" ");
+const [bearer, token] = authorization.split(" ");
 
 
 try {
@@ -14,7 +14,7 @@ if(bearer !== "Bearer") {
 throw new Unauthorized("Not authorized");}
 
 const {id} = jwt.verify(token, SECRET_KEY);
-const user = User.findById(id);
+const user = await User.findById(id);
 
 if(!user) {
    throw new Unauthorized("Not authorized");
@@ -24,7 +24,7 @@ req.user = user;
 next();
 
 } catch (error) {
-if(error.message = "Invalid sugnature") {
+if(error.message === "Invalid sugnature") {
    error.status = 401;
 }
 next(error);
