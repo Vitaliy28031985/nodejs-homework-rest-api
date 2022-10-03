@@ -1,0 +1,16 @@
+const {User} = require('../../models/user');
+
+const getCurrent = async(req, res) => {
+const {email} = req.user;
+res.json({
+   status: "succces",
+   code: 200,
+   data: {
+      user: {
+         email,
+      }
+   }
+})
+}
+
+module.exports = getCurrent;
