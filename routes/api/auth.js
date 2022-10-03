@@ -1,13 +1,14 @@
 const express = require('express')
 
 const {register, login} = require('../../controllers/auth')
+const {ctrlWrapper} = require('../../helpers');
 
 
 const router = express.Router()
 
-router.post('/register', register)
+router.post('/register', ctrlWrapper(register))
 
-router.post('/login', login)
+router.post('/login', ctrlWrapper(login))
 
 router.post('/logout')
 
