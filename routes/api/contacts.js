@@ -14,15 +14,15 @@ const router = express.Router()
 
 router.get('/', auth, ctrlWrapper(getContacts))
 
-router.get('/:contactId', ctrlWrapper(getContactsById))
+router.get('/:contactId', auth, ctrlWrapper(getContactsById))
 
 router.post('/', auth, ctrlWrapper(addContact))
 
-router.put('/:contactId', ctrlWrapper(updateContact))
+router.put('/:contactId', auth, ctrlWrapper(updateContact))
 
-router.patch('/:contactId/favorite', ctrlWrapper(updateStatusContact))
+router.patch('/:contactId/favorite', auth, ctrlWrapper(updateStatusContact))
 
-router.delete('/:contactId', ctrlWrapper(removeContact))
+router.delete('/:contactId', auth, ctrlWrapper(removeContact))
 
 
 module.exports = router
