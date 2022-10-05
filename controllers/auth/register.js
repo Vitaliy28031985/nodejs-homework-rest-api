@@ -1,4 +1,4 @@
-const {Conflict} = require('http-errors')
+
 const {User} = require('../../models/user')
 
 const register = async(req, res) => {
@@ -6,7 +6,7 @@ const {password, email, subscription} = req.body;
 
 const user = await User.findOne({email});
 if(user) {
-throw new Conflict("Email in use")
+return res.status(409).json({ message: 'Email in use' }); 
 }
 
 const newUser = new User({email, subscription});
@@ -17,8 +17,9 @@ res.status(201).json({
    status: "success",
    code: 201,
    data: {
-      subscription,
-      email
+      email,
+      subscription: "starter",
+      
    }
 
 })

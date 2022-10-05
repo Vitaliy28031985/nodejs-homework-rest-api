@@ -26,7 +26,7 @@ const userSchema = Schema(
     }, {versionKey: false, timestamps: true});
 
 
-    const userRegisterLoginSchema = (req, res, next) => {
+    const userRegisterSchema = (req, res, next) => {
       const schema = Joi.object({
       password: Joi.string().required(),
       email: Joi.string().pattern(emailRegexp).required(),
@@ -45,6 +45,25 @@ const userSchema = Schema(
   };
 
 
+  const userLoginSchema = (req, res, next) => {
+    const schema = Joi.object({
+    password: Joi.string().required(),
+    email: Joi.string().pattern(emailRegexp).required(),
+      
+  });
+
+  const validationResult = schema.validate(req.body);
+
+  if (validationResult.error) {
+    return res.status(400).json({
+      message: validationResult.error.details[0].message,
+    });
+  }
+
+  next();
+};
+
+
     userSchema.methods.setPassword = function(password) {
     this.password = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
     }
@@ -57,5 +76,6 @@ const userSchema = Schema(
 
     module.exports = {
       User,
-      userRegisterLoginSchema
+      userRegisterSchema,
+      userLoginSchema
     }
