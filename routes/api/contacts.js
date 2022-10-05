@@ -9,6 +9,7 @@ const {
   updateContact,
   updateStatusContact,
   removeContact} = require('../../controllers/contacts')
+  const {contactValidation, favoriteValidation} = require('../../models/contact')
 
 const router = express.Router()
 
@@ -16,13 +17,13 @@ router.get('/', auth, ctrlWrapper(getContacts))
 
 router.get('/:contactId', auth, ctrlWrapper(getContactsById))
 
-router.post('/', auth, ctrlWrapper(addContact))
+router.post('/', contactValidation, auth, ctrlWrapper(addContact))
 
-router.put('/:contactId', auth, ctrlWrapper(updateContact))
+router.put('/:contactId', contactValidation, auth, ctrlWrapper(updateContact))
 
-router.patch('/:contactId/favorite', auth, ctrlWrapper(updateStatusContact))
+router.patch('/:contactId/favorite', contactValidation, favoriteValidation, auth, ctrlWrapper(updateStatusContact))
 
-router.delete('/:contactId', auth, ctrlWrapper(removeContact))
+router.delete('/:contactId', contactValidation, auth, ctrlWrapper(removeContact))
 
 
 module.exports = router

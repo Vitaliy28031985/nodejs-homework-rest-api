@@ -1,7 +1,7 @@
 const {Schema, model} = require('mongoose');
 const bcrypt = require('bcryptjs');
-const { string } = require('joi');
-// const Joi = require('joi');
+const emailRegexp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+const Joi = require('joi');
 
 const userSchema = Schema(
    {
@@ -25,6 +25,26 @@ const userSchema = Schema(
       }
     }, {versionKey: false, timestamps: true});
 
+
+    const userRegisterLoginSchema = (req, res, next) => {
+      const schema = Joi.object({
+      password: Joi.string().required(),
+      email: Joi.string().pattern(emailRegexp).required(),
+        
+    });
+  
+    const validationResult = schema.validate(req.body);
+  
+    if (validationResult.error) {
+      return res.status(400).json({
+        message: validationResult.error.details[0].message,
+      });
+    }
+  
+    next();
+  };
+
+
     userSchema.methods.setPassword = function(password) {
     this.password = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
     }
@@ -37,4 +57,5 @@ const userSchema = Schema(
 
     module.exports = {
       User,
+      userRegisterLoginSchema
     }
