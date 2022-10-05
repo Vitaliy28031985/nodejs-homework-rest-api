@@ -1,6 +1,6 @@
 const express = require('express')
 
-const {register, login} = require('../../controllers/auth')
+const {register, login, logout} = require('../../controllers/auth')
 const {ctrlWrapper} = require('../../helpers');
 const {getCurrent} = require('../../controllers/user');
 const {auth} = require('../../middlewares')
@@ -14,6 +14,6 @@ router.post('/register', ctrlWrapper(register))
 
 router.post('/login', ctrlWrapper(login))
 
-router.post('/logout')
+router.post('/logout', auth, ctrlWrapper(logout))
 
 module.exports = router;

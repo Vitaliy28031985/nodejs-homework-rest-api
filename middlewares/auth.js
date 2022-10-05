@@ -9,6 +9,7 @@ const {authorization = ""} = req.headers;
 const [bearer, token] = authorization.split(" ");
 
 
+
 try {
 if(bearer !== "Bearer") {
 throw new Unauthorized("Not authorized");}
@@ -16,7 +17,7 @@ throw new Unauthorized("Not authorized");}
 const {id} = jwt.verify(token, SECRET_KEY);
 const user = await User.findById(id);
 
-if(!user) {
+if(!user || !user.token) {
    throw new Unauthorized("Not authorized");
 }
 
@@ -24,7 +25,8 @@ req.user = user;
 next();
 
 } catch (error) {
-if(error.message === "Invalid sugnature") {
+if(error.message === "Invalid sugnature" ||
+error.message === 'invalid token') {
    error.status = 401;
 }
 next(error);

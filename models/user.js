@@ -1,5 +1,6 @@
 const {Schema, model} = require('mongoose');
 const bcrypt = require('bcryptjs');
+const { string } = require('joi');
 // const Joi = require('joi');
 
 const userSchema = Schema(
@@ -18,7 +19,10 @@ const userSchema = Schema(
         enum: ["starter", "pro", "business"],
         default: "starter"
       },
-      token: String
+      token: {
+        type: String,
+        default: null
+      }
     }, {versionKey: false, timestamps: true});
 
     userSchema.methods.setPassword = function(password) {
