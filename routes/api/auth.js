@@ -2,12 +2,14 @@ const express = require('express')
 
 const {register, login, logout} = require('../../controllers/auth')
 const {ctrlWrapper} = require('../../helpers');
-const {getCurrent, updateAvatar} = require('../../controllers/user');
+const {getCurrent, updateAvatar, verifyEmail} = require('../../controllers/user');
 const {auth, upload} = require('../../middlewares')
 const {userRegisterSchema, userLoginSchema} = require('../../models/user')
 
 
 const router = express.Router()
+
+router.get("/verify/:verificationToken", ctrlWrapper(verifyEmail))
 
 router.get("/current", auth, ctrlWrapper(getCurrent))
 
