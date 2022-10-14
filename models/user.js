@@ -78,6 +78,23 @@ const userSchema = Schema(
 };
 
 
+const resendEmailSchema = (req, res, next) => {
+  const schema = Joi.object({
+  email: Joi.string().pattern(emailRegexp).required(),  
+});
+
+const validationResult = schema.validate(req.body);
+
+if (validationResult.error) {
+  return res.status(400).json({
+    message: validationResult.error.details[0].message,
+  });
+}
+
+next();
+};
+
+
     userSchema.methods.setPassword = function(password) {
     this.password = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
     }
@@ -91,5 +108,6 @@ const userSchema = Schema(
     module.exports = {
       User,
       userRegisterSchema,
-      userLoginSchema
+      userLoginSchema,
+      resendEmailSchema
     }
