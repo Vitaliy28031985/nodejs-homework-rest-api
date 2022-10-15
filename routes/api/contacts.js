@@ -23,7 +23,7 @@ router.put('/:contactId', contactValidation, auth, ctrlWrapper(updateContact))
 
 router.patch('/:contactId/favorite', favoriteValidation, auth, ctrlWrapper(updateStatusContact))
 
-router.delete('/:contactId', contactValidation, auth, ctrlWrapper(removeContact))
+router.delete('/:contactId', auth, ctrlWrapper(removeContact))
 
 
 module.exports = router;
