@@ -4,6 +4,7 @@ const cors = require('cors')
 require('dotenv').config();
 
 const videosRouter = require('./routes/api/videos')
+const postsRouter = require('./routes/api/posts')
 
 const app = express()
 
@@ -13,6 +14,7 @@ app.use(logger(formatsLogger))
 app.use(cors())
 app.use(express.json())
 
+app.use('/api/posts', postsRouter)
 app.use('/api/videos', videosRouter)
 
 app.use((req, res) => {
