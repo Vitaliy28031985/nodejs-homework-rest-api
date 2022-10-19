@@ -10,7 +10,7 @@ const postSchema = Schema({
     required: true, 
   },
 
-})
+}, {versionKey: false, timestamps: true})
 
 const Post = model("post", postSchema);
 

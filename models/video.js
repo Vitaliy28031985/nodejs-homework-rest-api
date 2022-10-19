@@ -10,7 +10,7 @@ const videoSchema = Schema({
     required: true, 
   },
 
-})
+}, {versionKey: false, timestamps: true})
 
 const Video = model("video", videoSchema);
 
