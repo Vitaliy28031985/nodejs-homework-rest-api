@@ -9,7 +9,7 @@ const {password, email} = req.body;
 
 const user = await User.findOne({email});
 
-if(!user || !user.coparePassword(password)) {
+if(!user || !user.verify || !user.coparePassword(password)) {
    return res.status(401).json({ message: 'Email or password is wrong' }); 
 }
 
