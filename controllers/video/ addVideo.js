@@ -1,9 +1,10 @@
 const {Video} = require('../../models/video')
 
 const  addVideo = async (req, res) => {
+const {_id} = req.user;
 const {body} = req;
-const newVideo = await Video.create(body);
-res.status(200).json(newVideo);
+const newVideo = await Video.create({...body, owner: _id});
+res.status(201).json(newVideo);
 
 }
 

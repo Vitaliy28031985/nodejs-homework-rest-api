@@ -1,18 +1,15 @@
 const express = require('express')
 
 const {addVideo, getVideos, removeVideo} = require('../../controllers/video');
-const {ctrlWrapper} = require('../../middlewares')
+const {ctrlWrapper, auth} = require('../../middlewares')
 
 const router = express.Router()
 
-router.get('/', ctrlWrapper(getVideos))
+router.get('/', auth, ctrlWrapper(getVideos))
 
-router.post('/', ctrlWrapper(addVideo))
+router.post('/', auth, ctrlWrapper(addVideo))
 
-router.delete('/:videoId', ctrlWrapper(removeVideo))
+router.delete('/:videoId', auth, ctrlWrapper(removeVideo))
 
-// router.put('/:contactId', async (req, res, next) => {
-//   res.json({ message: 'template message' })
-// })
 
 module.exports = router

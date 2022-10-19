@@ -9,6 +9,11 @@ const postSchema = Schema({
     type: String,
     required: true, 
   },
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: 'user',
+    required: true,
+  }
 
 }, {versionKey: false, timestamps: true})
 

@@ -1,6 +1,6 @@
 const express = require('express')
 
-const {ctrlWrapper} = require('../../middlewares')
+const {ctrlWrapper, auth} = require('../../middlewares')
 const {
 addPost,
 getPosts,
@@ -9,12 +9,12 @@ removePost} = require('../../controllers/post')
 
 const router = express.Router()
 
-router.get('/', ctrlWrapper(getPosts))
+router.get('/',  auth, ctrlWrapper(getPosts))
 
-router.post('/', ctrlWrapper(addPost))
+router.post('/', auth, ctrlWrapper(addPost))
 
-router.put('/:postId', ctrlWrapper(updatePost))
+router.put('/:postId', auth, ctrlWrapper(updatePost))
 
-router.delete('/:postId', ctrlWrapper(removePost))
+router.delete('/:postId', auth, ctrlWrapper(removePost))
 
 module.exports = router
