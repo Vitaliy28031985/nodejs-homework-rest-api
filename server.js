@@ -11,3 +11,5 @@ mongoose.connect(DB_HOST)
   console.log(error.message);
   process.exit(1);
 })
+
+// cross-env NODE_ENV=production node ./server.js
