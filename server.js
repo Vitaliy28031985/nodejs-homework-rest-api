@@ -12,4 +12,3 @@ mongoose.connect(DB_HOST)
   process.exit(1);
 })
 
-// 
