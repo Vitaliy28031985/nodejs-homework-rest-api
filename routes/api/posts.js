@@ -3,6 +3,7 @@ const express = require('express')
 const {ctrlWrapper, auth} = require('../../middlewares')
 const {
 addPost,
+getPostById,
 getPosts,
 updatePost,
 removePost} = require('../../controllers/post')
@@ -10,6 +11,8 @@ removePost} = require('../../controllers/post')
 const router = express.Router()
 
 router.get('/',  auth, ctrlWrapper(getPosts))
+
+router.get('/:postId', auth, ctrlWrapper(getPostById))
 
 router.post('/', auth, ctrlWrapper(addPost))
 
