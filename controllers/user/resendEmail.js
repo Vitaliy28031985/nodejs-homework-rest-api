@@ -1,6 +1,8 @@
 const {User} = require('../../models/user');
 const {sendEmail} = require('../../helpers');
 
+const {BASIC_URL} = process.env;
+
 const resendEmail = async (req, res) => {
 
 const {email} = req.body;
@@ -19,7 +21,7 @@ if(user.verify) {
 const mail = {
    to: email,
    subject: "Confirmation email",
-   html: `<a target="_blank" href="http://localhost:8080/api/users/verify/${user.verificationToken}">Confirm email repeatedly</a>`
+   html: `<a target="_blank" href="${BASIC_URL}/api/users/verify/${user.verificationToken}">Confirm email repeatedly</a>`
    };
    
    await sendEmail(mail);

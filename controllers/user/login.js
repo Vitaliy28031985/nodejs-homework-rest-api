@@ -26,8 +26,7 @@ res.json({
    data: {
    token, 
    user: {
-     email,
-     password,    
+     email   
    },   
    }
 })

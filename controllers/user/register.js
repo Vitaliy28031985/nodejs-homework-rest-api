@@ -2,6 +2,8 @@ const {v4: uuidv4} = require("uuid");
 const {User} = require('../../models/user')
 const {sendEmail} = require('../../helpers');
 
+const {BASIC_URL} = process.env;
+
 const register = async(req, res) => {
 const {email, name, password } = req.body;
 
@@ -19,7 +21,7 @@ await newUser.save();
 const mail = {
 to: email,
 subject: "Confirmation email",
-html: `<a target="_blank" href="http://localhost:8080/api/users/verify/${verificationToken}">Confirm email</a>`
+html: `<a target="_blank" href="${BASIC_URL}/api/users/verify/${verificationToken}">Confirm email</a>`
 };
 
 await sendEmail(mail);
